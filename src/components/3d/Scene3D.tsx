@@ -99,6 +99,7 @@ const Particles = () => {
           count={positions.length / 3}
           array={positions}
           itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.05} color="#ffffff" sizeAttenuation transparent opacity={0.8} />
