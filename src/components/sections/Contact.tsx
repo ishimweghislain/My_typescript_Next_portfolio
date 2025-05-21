@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 
@@ -18,6 +18,13 @@ const Contact = () => {
     message: string;
   } | null>(null);
 
+  // Initialize EmailJS when component mounts
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+    }
+  }, []);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -34,13 +41,10 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      // Initialize EmailJS with your public key
-      emailjs.init("YOUR_PUBLIC_KEY");
-
       // Send the email using EmailJS
       await emailjs.send(
-        'service_portfolio', // Create a service ID on EmailJS
-        'template_contact', // Create a template ID on EmailJS
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
         {
           from_name: formData.name,
           from_email: formData.email,

@@ -52,6 +52,30 @@ yarn dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
+### Setting Up Email Functionality
+
+The contact form uses EmailJS to send emails. To set it up:
+
+1. Create an account at [EmailJS](https://www.emailjs.com/)
+2. Create a new email service (Gmail, Outlook, etc.)
+3. Create a new email template with the following template variables:
+   - `from_name`: Sender's name
+   - `from_email`: Sender's email
+   - `subject`: Email subject
+   - `message`: Email message
+   - `to_name`: Your name
+   - `to_email`: Your email address
+   - `reply_to`: Sender's email for replies
+
+4. Create a `.env.local` file in the root directory with the following variables:
+```
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_emailjs_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
+```
+
+Replace the placeholder values with your actual EmailJS credentials.
+
 ## Deployment
 
 This project is configured for continuous deployment to both GitHub Pages and Netlify.
