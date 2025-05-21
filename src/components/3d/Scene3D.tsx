@@ -1,12 +1,13 @@
 'use client';
 
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text, Sphere, MeshDistortMaterial, bufferAttribute } from '@react-three/drei';
+import { OrbitControls, Text, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
 
 const AnimatedSphere = () => {
-  const sphereRef = useRef<any>(null);
+  const sphereRef = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }) => {
     if (sphereRef.current) {
@@ -34,7 +35,7 @@ const AnimatedSphere = () => {
 };
 
 const FloatingText = ({ text, position, color }: { text: string; position: [number, number, number]; color: string }) => {
-  const textRef = useRef<any>(null);
+  const textRef = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }) => {
     if (textRef.current) {

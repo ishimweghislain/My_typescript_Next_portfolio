@@ -1,9 +1,8 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import * as THREE from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, Float, OrbitControls } from '@react-three/drei';
 
 // Define the technology icons with their colors
@@ -35,7 +34,6 @@ const technologies = [
 // Component for a single floating technology icon
 const TechIcon = ({ name, color, position, speed = 1 }: { name: string; color: string; position: [number, number, number]; speed?: number }) => {
   const ref = useRef<THREE.Mesh>(null);
-  const { viewport } = useThree();
   const [hovered, setHovered] = useState(false);
 
   // Animation for the icon

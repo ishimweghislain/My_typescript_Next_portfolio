@@ -38,7 +38,7 @@ const Contact = () => {
       emailjs.init("YOUR_PUBLIC_KEY");
 
       // Send the email using EmailJS
-      const result = await emailjs.send(
+      await emailjs.send(
         'service_portfolio', // Create a service ID on EmailJS
         'template_contact', // Create a template ID on EmailJS
         {

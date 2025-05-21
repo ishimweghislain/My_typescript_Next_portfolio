@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import Scene3D from '../3d/Scene3D';
 
 const Hero = () => {
@@ -91,13 +92,15 @@ const Hero = () => {
           >
             <div className="w-full flex justify-center items-center">
               <div className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden relative">
-                <img
+                <Image
                   src="/images/me.jpg"
                   alt="ISHIMWE GHISLAIN"
                   className="w-full h-full object-cover object-center"
                   style={{
                     boxShadow: '0 0 30px rgba(0, 112, 243, 0.5)',
                   }}
+                  width={400}
+                  height={400}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-full"></div>
 

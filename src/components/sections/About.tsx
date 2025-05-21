@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const About = () => {
   const stats = [
@@ -34,13 +35,15 @@ const About = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="w-full h-[300px] md:h-[400px] flex justify-center items-center">
                 <div className="w-[250px] h-[250px] md:w-[350px] md:h-[350px] rounded-full overflow-hidden relative">
-                  <img
+                  <Image
                     src="/images/me2.jpeg"
                     alt="ISHIMWE GHISLAIN"
                     className="w-full h-full object-cover object-center"
                     style={{
                       boxShadow: '0 0 30px rgba(0, 112, 243, 0.5)',
                     }}
+                    width={350}
+                    height={350}
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent rounded-full"></div>
 
@@ -50,7 +53,7 @@ const About = () => {
                 </div>
               </div>
               <div className="w-full h-[400px] rounded-lg overflow-hidden relative hidden md:block">
-                <img
+                <Image
                   src="/images/fam.jpeg"
                   alt="Family Photo"
                   className="w-full h-full object-cover object-center rounded-lg"
@@ -58,6 +61,8 @@ const About = () => {
                     boxShadow: '0 0 30px rgba(0, 112, 243, 0.5)',
                     border: '3px solid rgba(0, 112, 243, 0.3)'
                   }}
+                  width={400}
+                  height={400}
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
@@ -92,7 +97,7 @@ const About = () => {
             </p>
 
             <div className="mt-8 mb-8 rounded-lg overflow-hidden relative w-full h-[200px] md:hidden">
-              <img
+              <Image
                 src="/images/fam.jpeg"
                 alt="Family Photo"
                 className="w-full h-full object-cover object-center rounded-lg"
@@ -100,6 +105,8 @@ const About = () => {
                   boxShadow: '0 0 20px rgba(0, 112, 243, 0.3)',
                   border: '2px solid rgba(0, 112, 243, 0.2)'
                 }}
+                width={400}
+                height={200}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div className="absolute bottom-4 left-4 text-white">
