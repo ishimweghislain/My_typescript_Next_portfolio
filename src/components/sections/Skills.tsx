@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import TechIconsGrid from '../ui/TechIconsGrid';
+import SkillBar from '../ui/SkillBar';
 
 const Skills = () => {
   const skillCategories = [
@@ -47,7 +48,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-gray-900">
+    <section id="skills" className="py-20" style={{ backgroundColor: 'var(--background-secondary)' }}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,9 +57,9 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">My Skills</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-          <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>My Skills</h2>
+          <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
+          <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--foreground-secondary)' }}>
             I have acquired a diverse range of skills throughout my career as a fullstack developer, software engineer, graphic designer, and content creator.
           </p>
         </motion.div>
@@ -71,26 +72,17 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               viewport={{ once: true }}
-              className="bg-black p-6 rounded-lg shadow-lg"
+              className="glass-card p-6 glow-hover"
             >
-              <h3 className="text-xl font-bold text-blue-500 mb-6">{category.title}</h3>
-              <div className="space-y-5">
+              <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--primary)' }}>{category.title}</h3>
+              <div className="space-y-4">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-white">{skill.name}</span>
-                      <span className="text-gray-400">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: 0.3 + skillIndex * 0.1 }}
-                        viewport={{ once: true }}
-                        className="bg-blue-500 h-2 rounded-full"
-                      ></motion.div>
-                    </div>
-                  </div>
+                  <SkillBar
+                    key={skillIndex}
+                    skill={skill.name}
+                    percentage={skill.level}
+                    delay={categoryIndex * 0.1 + skillIndex * 0.05}
+                  />
                 ))}
               </div>
             </motion.div>
@@ -104,17 +96,19 @@ const Skills = () => {
           viewport={{ once: true }}
           className="mt-16"
         >
-          <h3 className="text-2xl font-bold text-white mb-6 text-center">Technologies I Work With</h3>
+          <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: 'var(--foreground)' }}>Technologies I Work With</h3>
 
           {/* Technology Icons Grid */}
-          <div className="relative w-full overflow-hidden rounded-lg bg-black/30 backdrop-blur-sm p-4">
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-purple-500/10 z-0"></div>
+          <div className="relative w-full overflow-hidden glass-card p-6">
+            <div className="absolute inset-0 bg-gradient-to-b opacity-20 z-0" style={{
+              background: `linear-gradient(to bottom, var(--primary), var(--accent))`
+            }}></div>
             <div className="relative z-10">
               <TechIconsGrid />
             </div>
           </div>
 
-          <div className="text-gray-400 text-center mt-4">
+          <div className="text-center mt-4" style={{ color: 'var(--foreground-muted)' }}>
             <p className="italic">
               Hover over the icons to see the technologies I work with
             </p>

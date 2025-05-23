@@ -152,7 +152,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-black">
+    <section id="contact" className="py-20" style={{ backgroundColor: 'var(--background)' }}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -161,9 +161,9 @@ const Contact = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Get In Touch</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-          <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Get In Touch</h2>
+          <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
+          <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--foreground-secondary)' }}>
             Have a project in mind or want to collaborate? Feel free to reach out to me through any of the following channels.
           </p>
         </motion.div>
@@ -175,16 +175,23 @@ const Contact = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
+            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--foreground)' }}>Contact Information</h3>
             <div className="space-y-6 mb-8">
               {contactInfo.map((item, index) => (
                 <div key={index} className="flex items-start">
-                  <div className="text-blue-500 mr-4">{item.icon}</div>
+                  <div className="mr-4" style={{ color: 'var(--primary)' }}>{item.icon}</div>
                   <div>
-                    <h4 className="text-white font-medium mb-1">{item.title}</h4>
+                    <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{item.title}</h4>
                     <a
                       href={item.link}
-                      className="text-gray-400 hover:text-blue-400 transition-colors"
+                      className="transition-colors"
+                      style={{ color: 'var(--foreground-muted)' }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = 'var(--primary)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = 'var(--foreground-muted)';
+                      }}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

@@ -70,7 +70,7 @@ const Projects = () => {
     : projects.filter(project => project.category === activeFilter);
 
   return (
-    <section id="projects" className="py-20 bg-black">
+    <section id="projects" className="py-20" style={{ backgroundColor: 'var(--background-tertiary)' }}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -79,9 +79,9 @@ const Projects = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">My Projects</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-          <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>My Projects</h2>
+          <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
+          <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--foreground-secondary)' }}>
             Here are some of my recent projects showcasing my skills in web development, mobile apps, blockchain, and more.
           </p>
         </motion.div>
@@ -97,11 +97,12 @@ const Projects = () => {
             <button
               key={index}
               onClick={() => setActiveFilter(filter.value)}
-              className={`px-6 py-2 rounded-full transition-colors duration-300 ${
-                activeFilter === filter.value
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-              }`}
+              className="px-6 py-2 rounded-full transition-all duration-300 glow-hover"
+              style={{
+                backgroundColor: activeFilter === filter.value ? 'var(--primary)' : 'var(--glass-background)',
+                color: activeFilter === filter.value ? 'white' : 'var(--foreground)',
+                border: `1px solid ${activeFilter === filter.value ? 'var(--primary)' : 'var(--card-border)'}`
+              }}
             >
               {filter.name}
             </button>
@@ -116,7 +117,7 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gray-900 rounded-lg overflow-hidden shadow-lg"
+              className="glass-card overflow-hidden glow-hover interactive-card"
             >
               <div className="relative h-48 w-full bg-gray-800 overflow-hidden">
                 {project.category === 'web' && (

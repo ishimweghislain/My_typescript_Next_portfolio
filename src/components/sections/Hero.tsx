@@ -7,14 +7,21 @@ import Scene3D from '../3d/Scene3D';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: 'var(--background)' }}
+    >
       {/* 3D Background */}
       <Scene3D />
 
       {/* Content */}
       <div className="container mx-auto px-4 md:px-6 z-10 pt-24 md:pt-20 pb-16 relative">
         {/* Overlay to ensure text visibility */}
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm -mx-4 -my-20 z-[-1] hidden lg:block"></div>
+        <div
+          className="absolute inset-0 backdrop-blur-sm -mx-4 -my-20 z-[-1] hidden lg:block"
+          style={{ backgroundColor: 'var(--glass-background)' }}
+        ></div>
 
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 items-center">
           <motion.div
@@ -27,7 +34,8 @@ const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl md:text-2xl font-medium text-blue-500 mb-2"
+              className="text-xl md:text-2xl font-medium mb-2"
+              style={{ color: 'var(--primary)' }}
             >
               Hello, I&apos;m
             </motion.h2>
@@ -35,7 +43,8 @@ const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-4xl md:text-6xl font-bold text-white mb-4"
+              className="text-4xl md:text-6xl font-bold mb-4"
+              style={{ color: 'var(--foreground)' }}
             >
               ISHIMWE GHISLAIN
             </motion.h1>
@@ -43,23 +52,25 @@ const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="text-xl md:text-2xl text-gray-300 mb-6"
+              className="text-xl md:text-2xl mb-6"
+              style={{ color: 'var(--foreground-secondary)' }}
             >
               <div className="flex flex-wrap justify-center lg:justify-start gap-x-2">
-                <span className="text-blue-400">{'<'}</span>
-                <div className="typewriter relative overflow-hidden border-r-2 border-blue-500 pr-1 animate-cursor">
+                <span style={{ color: 'var(--accent)' }}>{'<'}</span>
+                <div className="typewriter relative overflow-hidden border-r-2 pr-1 animate-cursor" style={{ borderColor: 'var(--primary)' }}>
                   <span className="inline-block animate-typewriter overflow-hidden whitespace-nowrap">
                     Fullstack Developer / Software Engineer / Graphic Designer / Content Creator
                   </span>
                 </div>
-                <span className="text-blue-400">{'/>'}</span>
+                <span style={{ color: 'var(--accent)' }}>{'/>'}</span>
               </div>
             </motion.div>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0"
+              className="mb-8 max-w-lg mx-auto lg:mx-0"
+              style={{ color: 'var(--foreground-muted)' }}
             >
               Based in Kamonyi, Rwanda. I create stunning digital experiences with modern technologies and creative designs.
             </motion.p>
@@ -71,13 +82,27 @@ const Hero = () => {
             >
               <Link
                 href="#contact"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-full transition-colors duration-300"
+                className="font-medium py-3 px-6 rounded-full transition-all duration-300 glow-hover glass-card"
+                style={{
+                  backgroundColor: 'var(--primary)',
+                  color: 'white'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--primary-dark)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--primary)';
+                }}
               >
                 Contact Me
               </Link>
               <Link
                 href="#projects"
-                className="bg-transparent hover:bg-white/10 text-white border border-white/30 font-medium py-3 px-6 rounded-full transition-colors duration-300"
+                className="font-medium py-3 px-6 rounded-full transition-all duration-300 glow-hover glass"
+                style={{
+                  color: 'var(--foreground)',
+                  borderColor: 'var(--card-border)'
+                }}
               >
                 View My Work
               </Link>
@@ -97,16 +122,27 @@ const Hero = () => {
                   alt="ISHIMWE GHISLAIN"
                   className="w-full h-full object-cover object-center"
                   style={{
-                    boxShadow: '0 0 30px rgba(0, 112, 243, 0.5)',
+                    boxShadow: '0 0 30px var(--glow-color)',
                   }}
                   width={400}
                   height={400}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-full"></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-t to-transparent rounded-full"
+                  style={{
+                    background: `linear-gradient(to top, var(--background-secondary), transparent)`
+                  }}
+                ></div>
 
                 {/* Animated border */}
-                <div className="absolute inset-[-5px] rounded-full border-4 border-blue-500 animate-spin-slow"></div>
-                <div className="absolute inset-[-10px] rounded-full border-4 border-blue-300 opacity-50 animate-spin-slow-reverse"></div>
+                <div
+                  className="absolute inset-[-5px] rounded-full border-4 animate-spin-slow"
+                  style={{ borderColor: 'var(--primary)' }}
+                ></div>
+                <div
+                  className="absolute inset-[-10px] rounded-full border-4 opacity-50 animate-spin-slow-reverse"
+                  style={{ borderColor: 'var(--accent)' }}
+                ></div>
               </div>
             </div>
           </motion.div>
@@ -117,7 +153,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.2, repeat: Infinity, repeatType: 'reverse' }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center cursor-pointer"
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center cursor-pointer"
+          style={{ color: 'var(--foreground)' }}
           onClick={() => {
             const aboutSection = document.getElementById('about');
             if (aboutSection) {

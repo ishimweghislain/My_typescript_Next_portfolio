@@ -133,7 +133,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-gray-900">
+    <section id="services" className="py-20" style={{ backgroundColor: 'var(--background-secondary)' }}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -142,9 +142,9 @@ const Services = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">My Services</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-          <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>My Services</h2>
+          <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
+          <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--foreground-secondary)' }}>
             I offer a wide range of services to help businesses and individuals achieve their digital goals.
           </p>
         </motion.div>
@@ -157,11 +157,11 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-black p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="glass-card p-8 glow-hover interactive-card"
             >
-              <div className="text-blue-500 mb-4">{service.icon}</div>
-              <h3 className="text-xl font-bold text-white mb-4">{service.title}</h3>
-              <p className="text-gray-400">{service.description}</p>
+              <div className="mb-4" style={{ color: 'var(--primary)' }}>{service.icon}</div>
+              <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>{service.title}</h3>
+              <p style={{ color: 'var(--foreground-secondary)' }}>{service.description}</p>
             </motion.div>
           ))}
         </div>

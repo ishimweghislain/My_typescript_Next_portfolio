@@ -90,7 +90,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-black text-white py-12">
+    <footer className="py-12" style={{ backgroundColor: 'var(--background-tertiary)', color: 'var(--foreground)' }}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
@@ -100,7 +100,8 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="text-xl font-bold mb-4 text-blue-500"
+              className="text-xl font-bold mb-4"
+              style={{ color: 'var(--primary)' }}
             >
               ISHIMWE GHISLAIN
             </motion.h3>
@@ -109,7 +110,8 @@ const Footer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-gray-300 mb-4"
+              className="mb-4"
+              style={{ color: 'var(--foreground-secondary)' }}
             >
               Fullstack Developer, Software Engineer, Graphic Designer, and Content Creator based in Kamonyi, Rwanda.
             </motion.p>

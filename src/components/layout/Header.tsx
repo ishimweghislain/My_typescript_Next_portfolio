@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,7 +59,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-black bg-opacity-80 backdrop-blur-md py-2 shadow-lg'
+          ? 'glass backdrop-blur-md py-2 shadow-lg'
           : 'bg-transparent py-4'
       }`}
     >
@@ -68,14 +69,15 @@ const Header = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-white font-bold text-2xl"
+            className="font-bold text-2xl"
+            style={{ color: 'var(--foreground)' }}
           >
             <a
               href="#home"
               className="flex items-center cursor-pointer"
               onClick={(e) => handleScroll(e, 'home')}
             >
-              <span className="text-blue-500">ISHIMWE</span>
+              <span style={{ color: 'var(--primary)' }}>ISHIMWE</span>
               <span className="ml-2">GHISLAIN</span>
             </a>
           </motion.div>
@@ -85,25 +87,39 @@ const Header = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="hidden md:flex space-x-8"
+            className="hidden md:flex space-x-8 items-center"
           >
             {navLinks.map((link, index) => (
               <a
                 key={index}
                 href={link.href}
                 onClick={(e) => handleScroll(e, link.href.substring(1))}
-                className="text-white hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+                className="transition-colors duration-300 cursor-pointer glow-hover"
+                style={{
+                  color: 'var(--foreground)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--primary)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'var(--foreground)';
+                }}
               >
                 {link.name}
               </a>
             ))}
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
           </motion.nav>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Mobile Menu Button and Theme Toggle */}
+          <div className="md:hidden flex items-center gap-3">
+            <ThemeToggle />
             <button
               onClick={toggleMenu}
-              className="text-white focus:outline-none"
+              className="focus:outline-none"
+              style={{ color: 'var(--foreground)' }}
               aria-label="Toggle Menu"
             >
               <svg
@@ -140,15 +156,24 @@ const Header = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden mt-4"
+            className="md:hidden mt-4 glass-card"
           >
             <div className="flex flex-col space-y-4 py-4">
               {navLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
-                  className="text-white hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+                  className="transition-colors duration-300 cursor-pointer glow-hover px-4 py-2 rounded-lg"
+                  style={{ color: 'var(--foreground)' }}
                   onClick={(e) => handleScroll(e, link.href.substring(1))}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--primary)';
+                    e.currentTarget.style.backgroundColor = 'var(--glass-background)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--foreground)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                 >
                   {link.name}
                 </a>
