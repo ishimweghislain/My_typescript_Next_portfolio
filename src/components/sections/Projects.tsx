@@ -10,7 +10,7 @@ const Projects = () => {
     {
       title: 'Imboni E-Learning Platform',
       category: 'web',
-      image: '/placeholder.jpg',
+      image: '/images/imboni.jpg',
       description: 'A comprehensive educational learning system designed to facilitate online education with interactive courses, student management, and progress tracking.',
       technologies: ['React', 'Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
       link: 'https://imboni-e-learning.vercel.app/',
@@ -18,7 +18,7 @@ const Projects = () => {
     {
       title: 'Tora Rwanda - Blockchain Voting System',
       category: 'blockchain',
-      image: '/placeholder.jpg',
+      image: '/images/tora.jpg',
       description: 'An innovative blockchain-based voting system integrated with AI for secure, transparent, and tamper-proof elections in Rwanda.',
       technologies: ['Blockchain', 'AI/ML', 'React', 'Web3.js', 'Smart Contracts', 'Next.js'],
       link: 'https://torarwanda.vercel.app/',
@@ -85,37 +85,17 @@ const Projects = () => {
               viewport={{ once: true }}
               className="glass-card overflow-hidden glow-hover interactive-card"
             >
-              <div className="relative h-48 w-full bg-gray-800 overflow-hidden">
-                {project.category === 'web' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-blue-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                    </svg>
-                  </div>
-                )}
-                {project.category === 'mobile' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 to-teal-600/20 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-green-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                )}
-                {project.category === 'blockchain' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/20 to-orange-600/20 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-yellow-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                )}
-                {project.category === 'ai' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-pink-600/20 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-red-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                  <h4 className="text-white font-bold text-lg">{project.title}</h4>
+              <div 
+                className="relative h-48 w-full overflow-hidden"
+                style={{
+                  backgroundImage: `url(${project.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                }}
+              >
+                <div className="absolute inset-0 bg-black/50 hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                  <h4 className="text-white font-bold text-lg text-center px-4">{project.title}</h4>
                 </div>
               </div>
               <div className="p-6">
