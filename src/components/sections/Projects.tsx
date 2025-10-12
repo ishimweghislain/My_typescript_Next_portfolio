@@ -8,61 +8,27 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'E-Commerce Platform',
+      title: 'Imboni E-Learning Platform',
       category: 'web',
       image: '/placeholder.jpg',
-      description: 'A full-featured e-commerce platform with payment integration, user authentication, and admin dashboard.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Stripe'],
-      link: '#',
+      description: 'A comprehensive educational learning system designed to facilitate online education with interactive courses, student management, and progress tracking.',
+      technologies: ['React', 'Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+      link: 'https://imboni-e-learning.vercel.app/',
     },
     {
-      title: 'Portfolio Website',
-      category: 'web',
-      image: '/placeholder.jpg',
-      description: 'A responsive portfolio website with 3D animations and interactive elements.',
-      technologies: ['Next.js', 'Three.js', 'Tailwind CSS', 'Framer Motion'],
-      link: '#',
-    },
-    {
-      title: 'Mobile Banking App',
-      category: 'mobile',
-      image: '/placeholder.jpg',
-      description: 'A secure mobile banking application with transaction history, bill payments, and account management.',
-      technologies: ['React Native', 'Firebase', 'Redux', 'Node.js'],
-      link: '#',
-    },
-    {
-      title: 'Blockchain Wallet',
+      title: 'Tora Rwanda - Blockchain Voting System',
       category: 'blockchain',
       image: '/placeholder.jpg',
-      description: 'A cryptocurrency wallet with transaction capabilities and real-time market data.',
-      technologies: ['Web3.js', 'React', 'Ethereum', 'Solidity'],
-      link: '#',
-    },
-    {
-      title: 'Social Media Dashboard',
-      category: 'web',
-      image: '/placeholder.jpg',
-      description: 'A comprehensive dashboard for managing social media accounts and analyzing performance metrics.',
-      technologies: ['Vue.js', 'Express', 'Chart.js', 'PostgreSQL'],
-      link: '#',
-    },
-    {
-      title: 'AI Image Generator',
-      category: 'ai',
-      image: '/placeholder.jpg',
-      description: 'An AI-powered image generation tool that creates unique images based on text prompts.',
-      technologies: ['Python', 'TensorFlow', 'React', 'Flask'],
-      link: '#',
+      description: 'An innovative blockchain-based voting system integrated with AI for secure, transparent, and tamper-proof elections in Rwanda.',
+      technologies: ['Blockchain', 'AI/ML', 'React', 'Web3.js', 'Smart Contracts', 'Next.js'],
+      link: 'https://torarwanda.vercel.app/',
     },
   ];
 
   const filters = [
     { name: 'All', value: 'all' },
     { name: 'Web', value: 'web' },
-    { name: 'Mobile', value: 'mobile' },
     { name: 'Blockchain', value: 'blockchain' },
-    { name: 'AI', value: 'ai' },
   ];
 
   const filteredProjects = activeFilter === 'all'
@@ -82,7 +48,7 @@ const Projects = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>My Projects</h2>
           <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
           <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--foreground-secondary)' }}>
-            Here are some of my recent projects showcasing my skills in web development, mobile apps, blockchain, and more.
+            Here are my featured projects showcasing my skills in web development, blockchain technology, and AI integration.
           </p>
         </motion.div>
 
