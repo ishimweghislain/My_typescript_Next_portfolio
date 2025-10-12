@@ -75,7 +75,7 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={index}
@@ -83,10 +83,10 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="glass-card overflow-hidden glow-hover interactive-card"
+              className="glass-card overflow-hidden glow-hover interactive-card flex flex-col h-full"
             >
               <div 
-                className="relative h-48 w-full overflow-hidden"
+                className="relative h-48 w-full overflow-hidden flex-shrink-0"
                 style={{
                   backgroundImage: `url(${project.image})`,
                   backgroundSize: 'cover',
@@ -98,10 +98,10 @@ const Projects = () => {
                   <h4 className="text-white font-bold text-lg text-center px-4">{project.title}</h4>
                 </div>
               </div>
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-gray-400 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <p className="text-gray-400 mb-4 flex-grow">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
@@ -115,7 +115,7 @@ const Projects = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded transition-colors duration-300"
+                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded transition-colors duration-300 self-start mt-auto"
                 >
                   View Project
                 </a>
