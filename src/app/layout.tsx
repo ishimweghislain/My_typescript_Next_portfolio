@@ -20,11 +20,6 @@ export const metadata: Metadata = {
   title: "ISHIMWE GHISLAIN | Portfolio",
   description: "Fullstack Developer, Software Engineer, Graphic Designer, Content Creator",
   keywords: ["ISHIMWE GHISLAIN", "Fullstack Developer", "Software Engineer", "Graphic Designer", "Content Creator", "Rwanda", "Portfolio"],
-  icons: {
-    icon: '/icon.png',
-    shortcut: '/icon.png',
-    apple: '/icon.png',
-  },
 };
 
 
@@ -36,8 +31,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/icon.png" type="image/png" />
-        <link rel="shortcut icon" href="/icon.png" />
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
         <script
           dangerouslySetInnerHTML={{
