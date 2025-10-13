@@ -23,6 +23,14 @@ const Projects = () => {
       technologies: ['Blockchain', 'AI/ML', 'React', 'Web3.js', 'Smart Contracts', 'Next.js'],
       link: 'https://torarwanda.vercel.app/',
     },
+    {
+      title: 'MKMS - Military Kit Management System',
+      category: 'web',
+      image: '/images/mkms.jpg',
+      description: 'A comprehensive military kit management system designed for efficient tracking, inventory management, and distribution of military equipment and supplies.',
+      technologies: ['Next.js', 'PostgreSQL', 'TypeScript', 'Tailwind CSS'],
+      link: 'https://mkms.vercel.app/pages/login',
+    },
   ];
 
   const filters = [
