@@ -63,7 +63,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme') as Theme;
-      if (savedTheme && themes.some(t => t.value === savedTheme)) {
+      if (savedTheme && themeOptions.some(t => t.value === savedTheme)) {
         setThemeState(savedTheme);
       } else {
         // Default to dark theme for this portfolio
@@ -74,7 +74,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       // Set initial theme immediately to prevent flash
       document.documentElement.setAttribute('data-theme', savedTheme || 'dark');
     }
-  }, [themes]);
+  }, []);
 
   // Handle theme changes
   useEffect(() => {

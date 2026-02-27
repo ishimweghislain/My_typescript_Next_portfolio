@@ -48,7 +48,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     }, 200);
 
     return () => clearInterval(interval);
-  }, [onComplete, loadingTexts]);
+  }, [onComplete]);
 
   return (
     <AnimatePresence>
