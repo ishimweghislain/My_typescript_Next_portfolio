@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
 export type Theme = 'light' | 'dark' | 'cyberpunk' | 'ocean' | 'auto';
 
@@ -12,6 +12,14 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+const themeOptions = [
+  { value: 'light' as Theme, label: 'Light', icon: '☀️' },
+  { value: 'dark' as Theme, label: 'Dark', icon: '🌙' },
+  { value: 'cyberpunk' as Theme, label: 'Cyberpunk', icon: '🔮' },
+  { value: 'ocean' as Theme, label: 'Ocean', icon: '🌊' },
+  { value: 'auto' as Theme, label: 'Auto', icon: '🔄' },
+];
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
@@ -25,37 +33,31 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [theme, setThemeState] = useState<Theme>('dark');
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark' | 'cyberpunk' | 'ocean'>('dark');
 
-  const themes = [
-    { value: 'light' as Theme, label: 'Light', icon: '☀️' },
-    { value: 'dark' as Theme, label: 'Dark', icon: '🌙' },
-    { value: 'cyberpunk' as Theme, label: 'Cyberpunk', icon: '🔮' },
-    { value: 'ocean' as Theme, label: 'Ocean', icon: '🌊' },
-    { value: 'auto' as Theme, label: 'Auto', icon: '🔄' },
-  ];
+  const themes = themeOptions;
 
   // Get system theme preference
-  const getSystemTheme = (): 'light' | 'dark' => {
+  const getSystemTheme = useCallback((): 'light' | 'dark' => {
     if (typeof window !== 'undefined') {
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     return 'dark';
-  };
+  }, []);
 
   // Set theme function
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
     if (typeof window !== 'undefined') {
       localStorage.setItem('theme', newTheme);
     }
-  };
+  }, []);
 
   // Apply theme to document
-  const applyTheme = (themeToApply: 'light' | 'dark' | 'cyberpunk' | 'ocean') => {
+  const applyTheme = useCallback((themeToApply: 'light' | 'dark' | 'cyberpunk' | 'ocean') => {
     if (typeof window !== 'undefined') {
       document.documentElement.setAttribute('data-theme', themeToApply);
       setResolvedTheme(themeToApply);
     }
-  };
+  }, []);
 
   // Initialize theme on mount
   useEffect(() => {
@@ -72,7 +74,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       // Set initial theme immediately to prevent flash
       document.documentElement.setAttribute('data-theme', savedTheme || 'dark');
     }
-  }, []);
+  }, [themes]);
 
   // Handle theme changes
   useEffect(() => {
@@ -96,7 +98,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       mediaQuery.addEventListener('change', handleChange);
       return () => mediaQuery.removeEventListener('change', handleChange);
     }
-  }, [theme]);
+  }, [theme, applyTheme, getSystemTheme]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme, themes }}>

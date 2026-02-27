@@ -79,7 +79,7 @@ const Contact = () => {
     }
   };
 
-  const contactInfo = [] as any[];
+
 
   return (
     <section id="contact" className="py-20" style={{ backgroundColor: 'var(--background)' }}>

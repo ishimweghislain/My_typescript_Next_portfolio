@@ -7,32 +7,33 @@ interface LoadingScreenProps {
   onComplete: () => void;
 }
 
+const loadingTexts = [
+  'Initializing portfolio...',
+  'Loading 3D assets...',
+  'Preparing animations...',
+  'Setting up theme system...',
+  'Almost ready...',
+  'Welcome!'
+];
+
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
 
-  const loadingTexts = [
-    'Initializing portfolio...',
-    'Loading 3D assets...',
-    'Preparing animations...',
-    'Setting up theme system...',
-    'Almost ready...',
-    'Welcome!'
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress(prev => {
         const newProgress = prev + Math.random() * 15 + 5;
-        
+
         // Update text based on progress
         const textIndex = Math.min(
           Math.floor((newProgress / 100) * loadingTexts.length),
           loadingTexts.length - 1
         );
         setCurrentText(loadingTexts[textIndex]);
-        
+
         if (newProgress >= 100) {
           clearInterval(interval);
           setIsComplete(true);
@@ -41,13 +42,13 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           }, 1000);
           return 100;
         }
-        
+
         return newProgress;
       });
     }, 200);
 
     return () => clearInterval(interval);
-  }, [onComplete]);
+  }, [onComplete, loadingTexts]);
 
   return (
     <AnimatePresence>
@@ -124,7 +125,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
                   </linearGradient>
                 </defs>
               </svg>
-              
+
               {/* Progress Text */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.span
