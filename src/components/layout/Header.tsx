@@ -1,189 +1,211 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, FileDown } from 'lucide-react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import ScrollProgressBar from '@/components/ui/ScrollProgressBar';
 
-const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const navItems = [
+  { name: 'About', href: '#about', id: 'about' },
+  { name: 'Skills', href: '#skills', id: 'skills' },
+  { name: 'Experience', href: '#experience', id: 'experience' },
+  { name: 'Projects', href: '#projects', id: 'projects' },
+  { name: 'Resume', href: '#resume', id: 'resume' },
+  { name: 'Contact', href: '#contact', id: 'contact' },
+];
 
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
+
+  // Handle scroll detection and active section detection
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      setScrolled(window.scrollY > 40);
+
+      // Detect active section based on scroll offset
+      const headerOffset = 100;
+      const scrollPos = window.scrollY + headerOffset;
+
+      for (let i = navItems.length - 1; i >= 0; i--) {
+        const item = navItems[i];
+        const el = document.getElementById(item.id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPos >= top) {
+            setActiveSection(item.id);
+            return;
+          }
+        }
+      }
+
+      if (window.scrollY < 200) {
+        setActiveSection('');
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Function to handle smooth scrolling
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, targetId: string) => {
+  // Smooth scroll handler with offset for sticky header
+  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const targetElement = document.getElementById(targetId);
+    setMenuOpen(false);
 
-    if (targetElement) {
-      // Close mobile menu if open
-      if (isMenuOpen) {
-        setIsMenuOpen(false);
-      }
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '#');
+      return;
+    }
 
-      // Scroll to the target element
-      targetElement.scrollIntoView({ behavior: 'smooth' });
+    const target = document.getElementById(id);
+    if (target) {
+      const headerHeight = 72;
+      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerHeight;
 
-      // Update URL without page reload
-      window.history.pushState(null, '', `#${targetId}`);
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+      window.history.pushState(null, '', `#${id}`);
     }
   };
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Services', href: '#services' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'glass backdrop-blur-md py-2 shadow-lg'
-          : 'bg-transparent py-4'
-      }`}
-    >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex justify-between items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="font-bold text-2xl"
-            style={{ color: 'var(--foreground)' }}
-          >
+    <>
+      <ScrollProgressBar />
+
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 ${
+          scrolled ? 'shadow-xs' : ''
+        }`}
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--bg) 94%, transparent)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderBottom: '1px solid var(--border)',
+        }}
+      >
+        <div className="container">
+          <div className="flex items-center justify-between h-16 md:h-18">
+            {/* Wordmark logo */}
             <a
               href="#home"
-              className="flex items-center cursor-pointer"
-              onClick={(e) => handleScroll(e, 'home')}
+              onClick={(e) => scrollTo(e, 'home')}
+              className="mono font-semibold text-sm tracking-tight inline-flex items-center group py-2"
+              style={{ color: 'var(--text)' }}
             >
-              <span style={{ color: 'var(--primary)' }}>ISHIMWE</span>
-              <span className="ml-2">GHISLAIN</span>
+              <span>ghislain</span>
+              <span className="text-[var(--accent-text,var(--accent))] font-bold">.</span>
+              <span>dev</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] ml-1 opacity-75 group-hover:scale-125 transition-transform" />
             </a>
-          </motion.div>
 
-          {/* Desktop Navigation */}
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="hidden md:flex space-x-8 items-center"
-          >
-            {navLinks.map((link, index) => (
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={(e) => scrollTo(e, item.id)}
+                    className="mono text-xs px-3 py-1.5 rounded-[var(--radius-sm)] transition-all duration-200 relative"
+                    style={{
+                      color: isActive ? 'var(--text)' : 'var(--muted)',
+                      backgroundColor: isActive ? 'var(--accent-soft)' : 'transparent',
+                      fontWeight: isActive ? 600 : 400,
+                    }}
+                  >
+                    {isActive && (
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--accent)] mr-1.5 align-middle" />
+                    )}
+                    {item.name}
+                  </a>
+                );
+              })}
+            </nav>
+
+            {/* Actions: Download CV + ThemeToggle */}
+            <div className="hidden sm:flex items-center gap-3">
               <a
-                key={index}
-                href={link.href}
-                onClick={(e) => handleScroll(e, link.href.substring(1))}
-                className="transition-colors duration-300 cursor-pointer glow-hover"
-                style={{
-                  color: 'var(--foreground)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--primary)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--foreground)';
-                }}
+                href="/Ishimwe_Ghislain_CV.pdf"
+                download="Ishimwe_Ghislain_CV.pdf"
+                className="btn btn-secondary !py-2 !px-3.5 !min-h-[38px] mono text-xs flex items-center gap-2"
+                title="Download CV (PDF)"
               >
-                {link.name}
+                <FileDown size={14} strokeWidth={1.75} />
+                <span>CV</span>
               </a>
-            ))}
 
-            {/* Theme Toggle */}
-            <ThemeToggle />
-          </motion.nav>
-
-          {/* Mobile Menu Button and Theme Toggle */}
-          <div className="md:hidden flex items-center gap-3">
-            <ThemeToggle />
-            <button
-              onClick={toggleMenu}
-              className="focus:outline-none"
-              style={{ color: 'var(--foreground)' }}
-              aria-label="Toggle Menu"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {isMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden mt-4 glass-card"
-          >
-            <div className="flex flex-col space-y-4 py-4">
-              {navLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  className="transition-colors duration-300 cursor-pointer glow-hover px-4 py-2 rounded-lg"
-                  style={{ color: 'var(--foreground)' }}
-                  onClick={(e) => handleScroll(e, link.href.substring(1))}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'var(--primary)';
-                    e.currentTarget.style.backgroundColor = 'var(--glass-background)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'var(--foreground)';
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }}
-                >
-                  {link.name}
-                </a>
-              ))}
+              <ThemeToggle />
             </div>
-          </motion.div>
-        )}
-      </div>
-    </header>
-  );
-};
 
-export default Header;
+            {/* Mobile controls */}
+            <div className="flex sm:hidden items-center gap-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setMenuOpen((o) => !o)}
+                aria-label="Toggle navigation menu"
+                aria-expanded={menuOpen}
+                className="btn btn-secondary !p-2 !min-w-[40px] !min-h-[40px] flex items-center justify-center"
+              >
+                {menuOpen ? <X size={18} strokeWidth={1.75} /> : <Menu size={18} strokeWidth={1.75} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile menu dropdown */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="lg:hidden card overflow-hidden mb-3 p-3 flex flex-col gap-1 border border-[var(--border)]"
+              >
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      onClick={(e) => scrollTo(e, item.id)}
+                      className="mono text-xs px-3 py-2.5 rounded-[var(--radius-sm)] flex items-center justify-between"
+                      style={{
+                        color: isActive ? 'var(--text)' : 'var(--muted)',
+                        backgroundColor: isActive ? 'var(--accent-soft)' : 'transparent',
+                      }}
+                    >
+                      <span>{item.name}</span>
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                      )}
+                    </a>
+                  );
+                })}
+
+                <div className="pt-2 mt-1 border-t border-[var(--border)] flex justify-between items-center px-1">
+                  <a
+                    href="/Ishimwe_Ghislain_CV.pdf"
+                    download="Ishimwe_Ghislain_CV.pdf"
+                    className="btn btn-secondary !py-2 !px-3 mono text-xs flex items-center gap-2 w-full justify-center"
+                  >
+                    <FileDown size={14} strokeWidth={1.75} />
+                    <span>Download CV (PDF)</span>
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </header>
+    </>
+  );
+}

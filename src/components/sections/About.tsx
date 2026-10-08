@@ -1,163 +1,213 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import React from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { MapPin, GraduationCap, Languages, Terminal, Building2 } from 'lucide-react';
+import { profile } from '@/data';
 
-const About = () => {
-  const stats = [
-    { label: 'Years Experience', value: '5+' },
-    { label: 'Projects Completed', value: '50+' },
-    { label: 'Satisfied Clients', value: '30+' },
-    { label: 'Technologies', value: '20+' },
-  ];
+export default function About() {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.setProperty('--mouse-x', '-9999px');
+    e.currentTarget.style.setProperty('--mouse-y', '-9999px');
+  };
 
   return (
-    <section id="about" className="py-20" style={{ backgroundColor: 'var(--background)' }}>
-      <div className="container mx-auto px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>About Me</h2>
-          <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
+    <section id="about" className="py-24" style={{ backgroundColor: 'var(--surface-2)' }}>
+      <div className="container">
+        {/* Section Header */}
+        <div className="mb-14">
+          <p className="section-label mb-2">01 / ABOUT</p>
+          <h2
+            className="font-bold tracking-tight"
+            style={{ fontSize: 'var(--text-h2)', color: 'var(--text)' }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="w-full h-[300px] md:h-[400px] flex justify-center items-center">
-                <div className="w-[250px] h-[250px] md:w-[350px] md:h-[350px] rounded-full overflow-hidden relative">
-                  <Image
-                    src="/images/me2.jpeg"
-                    alt="ISHIMWE GHISLAIN"
-                    className="w-full h-full object-cover object-center"
-                    style={{
-                      boxShadow: '0 0 30px rgba(0, 112, 243, 0.5)',
-                    }}
-                    width={350}
-                    height={350}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent rounded-full"></div>
+            Engineering Background &amp; Profile
+          </h2>
+          <p className="text-base mt-2" style={{ color: 'var(--muted)' }}>
+            Full stack engineer shipping production platforms end-to-end for African businesses and beyond.
+          </p>
+        </div>
 
-                  {/* Animated border */}
-                  <div className="absolute inset-[-5px] rounded-full border-4 border-blue-500 animate-spin-slow"></div>
-                  <div className="absolute inset-[-10px] rounded-full border-4 border-blue-300 opacity-50 animate-spin-slow-reverse"></div>
-                </div>
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {/* Card 1: Large Main Bio (Span 7 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="card md:col-span-7 p-6 md:p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="chip chip-core">Full Stack Engineer</span>
+                <span className="mono text-xs text-[var(--muted)]">At Fullstack Software Ltd</span>
               </div>
-              <div className="w-full h-[400px] rounded-lg overflow-hidden relative hidden md:block">
-                <Image
-                  src="/images/fam.jpeg"
-                  alt="Family Photo"
-                  className="w-full h-full object-cover object-center rounded-lg"
-                  style={{
-                    boxShadow: '0 0 30px rgba(0, 112, 243, 0.5)',
-                    border: '3px solid rgba(0, 112, 243, 0.3)'
-                  }}
-                  width={400}
-                  height={400}
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <p className="font-medium text-sm">With my family in Kamonyi</p>
-                </div>
+
+              <h3 className="text-xl md:text-2xl font-bold mb-5" style={{ color: 'var(--text)' }}>
+                Building reliable software systems, from database schema to cloud servers.
+              </h3>
+
+              <p
+                className="text-base mb-4 leading-relaxed"
+                style={{ color: 'var(--muted)', maxWidth: 'none' }}
+              >
+                {profile.bio}
+              </p>
+            </div>
+
+            <div className="pt-6 border-t border-[var(--border)] flex flex-wrap items-center gap-4 mt-6">
+              <div className="flex items-center gap-2">
+                <Building2 size={16} strokeWidth={1.75} className="text-[var(--accent-text,var(--accent))]" />
+                <span className="mono text-xs text-[var(--text)] font-medium">Fullstack Software Ltd</span>
+              </div>
+              <span className="text-[var(--border)]">•</span>
+              <div className="flex items-center gap-2">
+                <Terminal size={16} strokeWidth={1.75} className="text-[var(--accent-text,var(--accent))]" />
+                <span className="mono text-xs text-[var(--muted)]">PostgreSQL, APIs, Docker, CI/CD</span>
               </div>
             </div>
           </motion.div>
 
+          {/* Card 2: Photo Card (Span 5 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="card md:col-span-5 p-6 md:p-8 flex flex-col items-center justify-center text-center"
           >
-            <h3 className="text-2xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
-              I&apos;m ISHIMWE GHISLAIN, a Passionate Fullstack Developer
-            </h3>
-            <p className="mb-6" style={{ color: 'var(--foreground-secondary)' }}>
-              Based in Kamonyi, Ruyenzi in Rwanda, I am a versatile professional with expertise in fullstack development,
-              software engineering, graphic design, and content creation. With a passion for creating innovative digital
-              solutions, I combine technical skills with creative thinking to deliver exceptional results.
-            </p>
-            <p className="mb-6" style={{ color: 'var(--foreground-secondary)' }}>
-              My journey in the tech world has equipped me with a diverse skill set across multiple programming languages
-              and frameworks. I specialize in building responsive web applications, creating intuitive user interfaces,
-              and developing robust backend systems.
-            </p>
-            <p className="mb-8" style={{ color: 'var(--foreground-secondary)' }}>
-              Beyond coding, I have a keen eye for design and a talent for creating engaging content. This unique combination
-              allows me to approach projects holistically, ensuring both functionality and aesthetic appeal.
-            </p>
-
-            <div className="mt-8 mb-8 rounded-lg overflow-hidden relative w-full h-[200px] md:hidden">
-              <Image
-                src="/images/fam.jpeg"
-                alt="Family Photo"
-                className="w-full h-full object-cover object-center rounded-lg"
-                style={{
-                  boxShadow: '0 0 20px rgba(0, 112, 243, 0.3)',
-                  border: '2px solid rgba(0, 112, 243, 0.2)'
-                }}
-                width={400}
-                height={200}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute bottom-4 left-4 text-white">
-                <p className="font-medium">With my family in Kamonyi, Rwanda</p>
+            <div className="photo-frame-wrapper mb-6">
+              <div className="photo-frame w-48 h-48 md:w-56 md:h-56 relative">
+                <Image
+                  src="/images/me.jpeg"
+                  alt="Ishimwe Ghislain"
+                  fill
+                  sizes="(max-width: 768px) 192px, 224px"
+                  className="object-cover object-center"
+                  priority
+                />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="glass-card p-4 text-center glow-hover"
-                >
-                  <h4 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--primary)' }}>{stat.value}</h4>
-                  <p className="text-sm" style={{ color: 'var(--foreground-muted)' }}>{stat.label}</p>
-                </motion.div>
-              ))}
+            <h4 className="font-bold text-lg text-[var(--text)] mb-1">
+              Ishimwe Ghislain
+            </h4>
+            <p className="mono text-xs text-[var(--accent-text,var(--accent))]">
+              Full Stack Developer &amp; Project Manager
+            </p>
+            <p className="mono text-xs text-[var(--muted)] mt-1">
+              Kamonyi, Rwanda
+            </p>
+          </motion.div>
+
+          {/* Card 3: Location (Span 4 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="card md:col-span-4 p-6 flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <span className="mono text-xs uppercase tracking-wider text-[var(--muted)]">
+                Location
+              </span>
+              <div className="w-8 h-8 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-[var(--accent-text,var(--accent))]">
+                <MapPin size={16} strokeWidth={1.75} />
+              </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <a
-                href="#contact"
-                className="inline-block font-medium py-3 px-6 rounded-full transition-all duration-300 glow-hover glass-card"
-                style={{
-                  backgroundColor: 'var(--primary)',
-                  color: 'white'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--primary-dark)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--primary)';
-                }}
-              >
-                Let&apos;s Talk
-              </a>
-            </motion.div>
+            <div>
+              <p className="text-lg font-bold text-[var(--text)] mb-1">
+                {profile.based}
+              </p>
+              <p className="mono text-xs text-[var(--muted)] mb-3">
+                CAT (UTC+2) • Remote Ready
+              </p>
+              <p className="text-xs text-[var(--muted)] leading-relaxed">
+                Available for remote teams across African, European, and US time zones.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Card 4: Education (Span 4 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="card md:col-span-4 p-6 flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <span className="mono text-xs uppercase tracking-wider text-[var(--muted)]">
+                Education
+              </span>
+              <div className="w-8 h-8 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-[var(--accent-text,var(--accent))]">
+                <GraduationCap size={16} strokeWidth={1.75} />
+              </div>
+            </div>
+
+            <div>
+              <p className="text-lg font-bold text-[var(--text)] mb-1">
+                AUCA
+              </p>
+              <p className="mono text-xs text-[var(--accent-text,var(--accent))] mb-2">
+                BSc Software Engineering
+              </p>
+              <p className="text-xs text-[var(--muted)] leading-relaxed">
+                Adventist University of Central Africa (AUCA), Year 2 student. Focus on systems architecture and data engineering.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Card 5: Languages (Span 4 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="card md:col-span-4 p-6 flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <span className="mono text-xs uppercase tracking-wider text-[var(--muted)]">
+                Languages
+              </span>
+              <div className="w-8 h-8 rounded-full bg-[var(--surface-2)] flex items-center justify-center text-[var(--accent-text,var(--accent))]">
+                <Languages size={16} strokeWidth={1.75} />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex flex-col gap-2">
+                {profile.languages.map((l) => (
+                  <div key={l.language} className="flex items-center justify-between py-1 border-b border-[var(--border)] last:border-b-0">
+                    <span className="text-sm font-medium text-[var(--text)]">{l.language}</span>
+                    <span className="mono text-xs text-[var(--muted)]">{l.level}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

@@ -1,122 +1,91 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
-import TechIconsGrid from '../ui/TechIconsGrid';
-import SkillBar from '../ui/SkillBar';
+import { skillCategories } from '@/data';
 
-const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Frontend Development',
-      skills: [
-        { name: 'HTML5', level: 90 },
-        { name: 'CSS3/SASS', level: 85 },
-        { name: 'JavaScript', level: 90 },
-        { name: 'TypeScript', level: 85 },
-        { name: 'React.js', level: 88 },
-        { name: 'Next.js', level: 85 },
-        { name: 'Vue.js', level: 80 },
-        { name: 'Tailwind CSS', level: 90 },
-      ],
-    },
-    {
-      title: 'Backend Development',
-      skills: [
-        { name: 'Node.js', level: 85 },
-        { name: 'Express.js', level: 88 },
-        { name: 'Python', level: 80 },
-        { name: 'Django', level: 75 },
-        { name: 'PHP', level: 78 },
-        { name: 'Laravel', level: 75 },
-        { name: 'MongoDB', level: 82 },
-        { name: 'MySQL/PostgreSQL', level: 80 },
-      ],
-    },
-    {
-      title: 'Design & Others',
-      skills: [
-        { name: 'Adobe Photoshop', level: 85 },
-        { name: 'Adobe Illustrator', level: 80 },
-        { name: 'Figma', level: 88 },
-        { name: 'UI/UX Design', level: 85 },
-        { name: 'Content Creation', level: 82 },
-        { name: 'Git/GitHub', level: 85 },
-        { name: 'Docker', level: 75 },
-        { name: 'AWS', level: 70 },
-      ],
-    },
-  ];
+export default function Skills() {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.setProperty('--mouse-x', '-9999px');
+    e.currentTarget.style.setProperty('--mouse-y', '-9999px');
+  };
 
   return (
-    <section id="skills" className="py-20" style={{ backgroundColor: 'var(--background-secondary)' }}>
-      <div className="container mx-auto px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>My Skills</h2>
-          <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
-          <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--foreground-secondary)' }}>
-            I have acquired a diverse range of skills throughout my career as a fullstack developer, software engineer, graphic designer, and content creator.
-          </p>
-        </motion.div>
+    <section id="skills" className="py-24" style={{ backgroundColor: 'var(--bg)' }}>
+      <div className="container">
+        {/* Section Header */}
+        <div className="mb-14">
+          <p className="section-label mb-2">02 / SKILLS</p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <h2
+                className="font-bold tracking-tight"
+                style={{ fontSize: 'var(--text-h2)', color: 'var(--text)' }}
+              >
+                Technical Stack &amp; Capabilities
+              </h2>
+              <p className="text-base mt-2" style={{ color: 'var(--muted)' }}>
+                Tools, frameworks, and architecture patterns I employ to build scalable software.
+              </p>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
+            <div className="flex items-center gap-2 mono text-xs text-[var(--muted)] shrink-0">
+              <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
+              <span>Highlighted tags denote core production stack</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Skill Card Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((category, index) => (
             <motion.div
-              key={categoryIndex}
-              initial={{ opacity: 0, y: 30 }}
+              key={category.title}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              viewport={{ once: true }}
-              className="glass-card p-6 glow-hover"
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{
+                duration: 0.45,
+                delay: index * 0.06,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="card p-6 flex flex-col justify-between"
             >
-              <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--primary)' }}>{category.title}</h3>
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <SkillBar
-                    key={skillIndex}
-                    skill={skill.name}
-                    percentage={skill.level}
-                    delay={categoryIndex * 0.1 + skillIndex * 0.05}
-                  />
-                ))}
+              <div>
+                {/* Header row */}
+                <div className="flex items-center justify-between mb-5 pb-3 border-b border-[var(--border)]">
+                  <h3 className="mono font-semibold text-sm tracking-wide text-[var(--text)]">
+                    {category.title}
+                  </h3>
+                  <span className="mono text-xs text-[var(--muted)]">
+                    {category.skills.length} tools
+                  </span>
+                </div>
+
+                {/* Chip list */}
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill.name}
+                      className={`chip ${skill.isCore ? 'chip-core font-medium' : ''}`}
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center" style={{ color: 'var(--foreground)' }}>Technologies I Work With</h3>
-
-          {/* Technology Icons Grid */}
-          <div className="relative w-full overflow-hidden glass-card p-6">
-            <div className="absolute inset-0 bg-gradient-to-b opacity-20 z-0" style={{
-              background: `linear-gradient(to bottom, var(--primary), var(--accent))`
-            }}></div>
-            <div className="relative z-10">
-              <TechIconsGrid />
-            </div>
-          </div>
-
-          <div className="text-center mt-4" style={{ color: 'var(--foreground-muted)' }}>
-            <p className="italic">
-              Hover over the icons to see the technologies I work with
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
-};
-
-export default Skills;
+}

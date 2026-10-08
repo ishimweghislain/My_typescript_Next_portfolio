@@ -1,192 +1,139 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
+import {
+  Globe,
+  Smartphone,
+  Server,
+  Cloud,
+  Blocks,
+  GraduationCap,
+} from 'lucide-react';
 
-const Services = () => {
-  const services = [
-    {
-      title: 'Web Development',
-      description:
-        'Creating responsive, user-friendly websites and web applications using modern technologies and frameworks. From simple landing pages to complex web applications.',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: 'Mobile App Development',
-      description:
-        'Building native and cross-platform mobile applications for iOS and Android devices. Delivering seamless user experiences with performance-optimized code.',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: 'UI/UX Design',
-      description:
-        'Designing intuitive user interfaces and experiences that engage users and meet business objectives. Creating wireframes, prototypes, and visual designs.',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: 'Graphic Design',
-      description:
-        'Creating visually appealing designs for branding, marketing materials, social media, and more. Delivering high-quality graphics that communicate your message effectively.',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: 'Content Creation',
-      description:
-        'Producing engaging and informative content for websites, blogs, social media, and other digital platforms. Creating content strategies that drive engagement and conversions.',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: 'Blockchain Development',
-      description:
-        'Developing decentralized applications (dApps) and smart contracts on blockchain platforms. Implementing Web3 solutions for various use cases.',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M13 10V3L4 14h7v7l9-11h-7z"
-          />
-        </svg>
-      ),
-    },
-  ];
+const serviceItems = [
+  {
+    title: 'Web Applications',
+    description:
+      'Responsive full-stack web platforms built with Next.js, React, and TypeScript. Optimized for high performance, accessibility, and zero layout shift.',
+    icon: <Globe size={24} strokeWidth={1.75} />,
+  },
+  {
+    title: 'Mobile Apps & PWAs',
+    description:
+      'Native-feel mobile apps built with Flutter and React Native, plus installable Progressive Web Apps with offline caching and responsive service workers.',
+    icon: <Smartphone size={24} strokeWidth={1.75} />,
+  },
+  {
+    title: 'Backend & APIs',
+    description:
+      'Robust backend systems using Node.js, NestJS, and Laravel. Scalable PostgreSQL database design, REST/GraphQL endpoints, and MTN MoMo payment integrations.',
+    icon: <Server size={24} strokeWidth={1.75} />,
+  },
+  {
+    title: 'DevOps & Cloud Hosting',
+    description:
+      'Linux server provisioning (Apache/Nginx), containerization with Docker, automated CI/CD deployment pipelines on GitHub Actions, cPanel, Vercel, and Netlify.',
+    icon: <Cloud size={24} strokeWidth={1.75} />,
+  },
+  {
+    title: 'Blockchain & Smart Contracts',
+    description:
+      'Smart contract development in Solidity for the Ethereum ecosystem. Web3 provider integration for decentralized applications and verified voting systems.',
+    icon: <Blocks size={24} strokeWidth={1.75} />,
+  },
+  {
+    title: 'Training & Mentoring',
+    description:
+      'Curriculum delivery and technical coaching in full stack development. Mentored 50+ students in modern MERN stack, Laravel, and TypeScript tooling.',
+    icon: <GraduationCap size={24} strokeWidth={1.75} />,
+  },
+];
+
+export default function Services() {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.setProperty('--mouse-x', '-9999px');
+    e.currentTarget.style.setProperty('--mouse-y', '-9999px');
+  };
 
   return (
-    <section id="services" className="py-20" style={{ backgroundColor: 'var(--background-secondary)' }}>
-      <div className="container mx-auto px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>My Services</h2>
-          <div className="w-20 h-1 mx-auto" style={{ backgroundColor: 'var(--primary)' }}></div>
-          <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--foreground-secondary)' }}>
-            I offer a wide range of services to help businesses and individuals achieve their digital goals.
-          </p>
-        </motion.div>
+    <section id="services" className="py-24" style={{ backgroundColor: 'var(--bg)' }}>
+      <div className="container">
+        {/* Section Header */}
+        <div className="mb-14">
+          <p className="section-label mb-2">05 / SERVICES</p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <h2
+                className="font-bold tracking-tight"
+                style={{ fontSize: 'var(--text-h2)', color: 'var(--text)' }}
+              >
+                Engineering Services &amp; Capabilities
+              </h2>
+              <p className="text-base mt-2" style={{ color: 'var(--muted)' }}>
+                Direct technical services I provide for products, companies, and growing startups.
+              </p>
+            </div>
+            <div className="mono text-xs text-[var(--muted)] shrink-0">
+              End-to-End Execution
+            </div>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+        {/* 6-Card Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {serviceItems.map((service, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              key={service.title}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="glass-card p-8 glow-hover interactive-card"
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{
+                duration: 0.45,
+                delay: index * 0.06,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="card p-6 md:p-7 flex flex-col justify-between"
             >
-              <div className="mb-4" style={{ color: 'var(--primary)' }}>{service.icon}</div>
-              <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>{service.title}</h3>
-              <p style={{ color: 'var(--foreground-secondary)' }}>{service.description}</p>
+              <div>
+                {/* Icon box */}
+                <div
+                  className="w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-5 border border-[var(--border)]"
+                  style={{
+                    backgroundColor: 'var(--surface-2)',
+                    color: 'var(--accent-text,var(--accent))',
+                  }}
+                >
+                  {service.icon}
+                </div>
+
+                <h3 className="text-lg font-bold mb-3 text-[var(--text)]">
+                  {service.title}
+                </h3>
+
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                  {service.description}
+                </p>
+              </div>
+
+              <div className="pt-4 border-t border-[var(--border)] mt-6 flex items-center justify-between">
+                <span className="mono text-[0.7rem] text-[var(--muted)] uppercase tracking-wider">
+                  Service 0{index + 1}
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+              </div>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <h3 className="text-2xl font-bold text-white mb-6">Need a custom service?</h3>
-          <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-            If you have a specific project in mind that doesn&apos;t fit into these categories, I&apos;m always open to discussing custom solutions tailored to your needs.
-          </p>
-          <a
-            href="#contact"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-full transition-colors duration-300"
-          >
-            Get in Touch
-          </a>
-        </motion.div>
       </div>
     </section>
   );
-};
-
-export default Services;
+}

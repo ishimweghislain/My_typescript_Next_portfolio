@@ -1,12 +1,12 @@
 [build]
   command = "npm run build"
-  publish = ".next"
+  publish = "out"
+  functions = "netlify/functions"
 
-[build.environment]
-  NETLIFY_NEXT_PLUGIN_SKIP = "true"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+[[redirects]]
+  from = "/api/contact"
+  to = "/.netlify/functions/contact"
+  status = 200
 
 [context.production]
   command = "npm run build"

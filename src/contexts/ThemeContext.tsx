@@ -2,106 +2,71 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
-export type Theme = 'light' | 'dark' | 'cyberpunk' | 'ocean' | 'auto';
+export type Theme = 'light' | 'dark' | 'system';
 
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-  resolvedTheme: 'light' | 'dark' | 'cyberpunk' | 'ocean';
+  resolvedTheme: 'light' | 'dark';
   themes: { value: Theme; label: string; icon: string }[];
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const themeOptions = [
-  { value: 'light' as Theme, label: 'Light', icon: '☀️' },
-  { value: 'dark' as Theme, label: 'Dark', icon: '🌙' },
-  { value: 'cyberpunk' as Theme, label: 'Cyberpunk', icon: '🔮' },
-  { value: 'ocean' as Theme, label: 'Ocean', icon: '🌊' },
-  { value: 'auto' as Theme, label: 'Auto', icon: '🔄' },
+const themeOptions: { value: Theme; label: string; icon: string }[] = [
+  { value: 'light',  label: 'Light',  icon: 'sun' },
+  { value: 'dark',   label: 'Dark',   icon: 'moon' },
+  { value: 'system', label: 'System', icon: 'monitor' },
 ];
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
+  if (!context) throw new Error('useTheme must be used within ThemeProvider');
   return context;
 };
 
+function getSystemTheme(): 'light' | 'dark' {
+  if (typeof window === 'undefined') return 'dark';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>('dark');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark' | 'cyberpunk' | 'ocean'>('dark');
+  const [theme, setThemeState] = useState<Theme>('light');
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
-  const themes = themeOptions;
-
-  // Get system theme preference
-  const getSystemTheme = useCallback((): 'light' | 'dark' => {
-    if (typeof window !== 'undefined') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'dark';
+  const applyTheme = useCallback((resolved: 'light' | 'dark') => {
+    document.documentElement.setAttribute('data-theme', resolved);
+    setResolvedTheme(resolved);
   }, []);
 
-  // Set theme function
-  const setTheme = useCallback((newTheme: Theme) => {
-    setThemeState(newTheme);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', newTheme);
-    }
+  const setTheme = useCallback((next: Theme) => {
+    setThemeState(next);
+    localStorage.setItem('theme', next);
   }, []);
 
-  // Apply theme to document
-  const applyTheme = useCallback((themeToApply: 'light' | 'dark' | 'cyberpunk' | 'ocean') => {
-    if (typeof window !== 'undefined') {
-      document.documentElement.setAttribute('data-theme', themeToApply);
-      setResolvedTheme(themeToApply);
-    }
-  }, []);
-
-  // Initialize theme on mount
+  // Init from localStorage on mount
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme') as Theme;
-      if (savedTheme && themeOptions.some(t => t.value === savedTheme)) {
-        setThemeState(savedTheme);
-      } else {
-        // Default to dark theme for this portfolio
-        setThemeState('dark');
-        localStorage.setItem('theme', 'dark');
-      }
-
-      // Set initial theme immediately to prevent flash
-      document.documentElement.setAttribute('data-theme', savedTheme || 'dark');
-    }
+    const saved = localStorage.getItem('theme') as Theme | null;
+    const valid: Theme[] = ['light', 'dark', 'system'];
+    const initial = saved && valid.includes(saved) ? saved : 'light';
+    setThemeState(initial);
   }, []);
 
-  // Handle theme changes
+  // Apply whenever theme changes; listen for system changes
   useEffect(() => {
-    let themeToApply: 'light' | 'dark' | 'cyberpunk' | 'ocean';
+    const resolved = theme === 'system' ? getSystemTheme() : theme;
+    applyTheme(resolved);
 
-    if (theme === 'auto') {
-      themeToApply = getSystemTheme();
-    } else {
-      themeToApply = theme as 'light' | 'dark' | 'cyberpunk' | 'ocean';
+    if (theme === 'system') {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const handler = () => applyTheme(getSystemTheme());
+      mq.addEventListener('change', handler);
+      return () => mq.removeEventListener('change', handler);
     }
-
-    applyTheme(themeToApply);
-
-    // Listen for system theme changes when auto is selected
-    if (theme === 'auto') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleChange = () => {
-        applyTheme(getSystemTheme());
-      };
-
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
-    }
-  }, [theme, applyTheme, getSystemTheme]);
+  }, [theme, applyTheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme, themes }}>
+    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme, themes: themeOptions }}>
       {children}
     </ThemeContext.Provider>
   );

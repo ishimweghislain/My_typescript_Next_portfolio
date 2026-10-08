@@ -1,186 +1,219 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import Image from 'next/image';
-import Scene3D from '../3d/Scene3D';
+import { ArrowRight, FileDown, Mail } from 'lucide-react';
+import MetricCounter from '@/components/ui/MetricCounter';
+import { profile } from '@/data';
 
-const Hero = () => {
+export default function Hero() {
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const headerHeight = 72;
+      const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: elementPosition - headerHeight, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ backgroundColor: 'var(--background)' }}
+      className="relative min-h-[90vh] flex flex-col justify-center pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden"
+      style={{ backgroundColor: 'var(--bg)' }}
     >
-      {/* 3D Background */}
-      <Scene3D />
+      {/* Subtle Lime radial glow behind the hero only */}
+      <div className="hero-glow" />
 
-      {/* Content */}
-      <div className="container mx-auto px-4 md:px-6 z-10 pt-24 md:pt-20 pb-16 relative">
-        {/* Overlay to ensure text visibility */}
-        <div
-          className="absolute inset-0 backdrop-blur-sm -mx-4 -my-20 z-[-1] hidden lg:block"
-          style={{ backgroundColor: 'var(--glass-background)' }}
-        ></div>
-
-        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 items-center">
+      <div className="container relative z-10 flex-grow flex flex-col justify-center">
+        {/* Main 2-column layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-16 md:mb-24">
+          {/* Left Column: Bio / Positioning */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center lg:text-left mt-6 lg:mt-0"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-7 flex flex-col items-start"
           >
-            <motion.h2
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl md:text-2xl font-medium mb-2"
-              style={{ color: 'var(--primary)' }}
+            {/* Availability Badge */}
+            <div className="availability-badge mb-6">
+              <span className="availability-dot animate-pulse-dot" />
+              <span>{profile.availability}</span>
+            </div>
+
+            {/* Name */}
+            <h1
+              className="font-bold tracking-tight mb-2 text-[var(--text)]"
+              style={{
+                fontSize: 'var(--text-hero)',
+                letterSpacing: '-0.035em',
+                lineHeight: 1.05,
+              }}
             >
-              Hello, I&apos;m
-            </motion.h2>
-            <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-4xl md:text-6xl font-bold mb-4"
-              style={{ color: 'var(--foreground)' }}
+              Ishimwe Ghislain
+            </h1>
+
+            {/* Title / Role */}
+            <p
+              className="mono text-lg md:text-xl font-medium mb-4"
+              style={{ color: 'var(--accent-text,var(--accent))' }}
             >
-              ISHIMWE GHISLAIN
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="text-xl md:text-2xl mb-6"
-              style={{ color: 'var(--foreground-secondary)' }}
+              {profile.role}
+            </p>
+
+            {/* Value Proposition */}
+            <p
+              className="text-base md:text-lg mb-8 max-w-[56ch]"
+              style={{ color: 'var(--muted)', lineHeight: 1.6 }}
             >
-              <div className="flex flex-wrap justify-center lg:justify-start gap-x-2">
-                <span style={{ color: 'var(--accent)' }}>{'<'}</span>
-                <div className="typewriter relative overflow-hidden border-r-2 pr-1 animate-cursor" style={{ borderColor: 'var(--primary)' }}>
-                  <span className="inline-block animate-typewriter overflow-hidden whitespace-nowrap">
-                    Fullstack Developer / Software Engineer / Graphic Designer / Content Creator
-                  </span>
-                </div>
-                <span style={{ color: 'var(--accent)' }}>{'/>'}</span>
-              </div>
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="mb-8 max-w-lg mx-auto lg:mx-0"
-              style={{ color: 'var(--foreground-muted)' }}
-            >
-              Based in Kamonyi, Rwanda. I create stunning digital experiences with modern technologies and creative designs.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
-              <Link
-                href="#contact"
-                className="font-medium py-3 px-6 rounded-full transition-all duration-300 glow-hover glass-card"
-                style={{
-                  backgroundColor: 'var(--primary)',
-                  color: 'white'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--primary-dark)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--primary)';
-                }}
-              >
-                Contact Me
-              </Link>
-              <Link
+              {profile.tagline}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4">
+              <a
                 href="#projects"
-                className="font-medium py-3 px-6 rounded-full transition-all duration-300 glow-hover glass"
-                style={{
-                  color: 'var(--foreground)',
-                  borderColor: 'var(--card-border)'
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('projects');
                 }}
+                className="btn btn-primary"
               >
-                View My Work
-              </Link>
-            </motion.div>
+                <span>View Projects</span>
+                <ArrowRight size={15} strokeWidth={2} className="btn-arrow" />
+              </a>
+
+              <a
+                href="/Ishimwe_Ghislain_CV.pdf"
+                download="Ishimwe_Ghislain_CV.pdf"
+                className="btn btn-secondary"
+              >
+                <FileDown size={15} strokeWidth={1.75} />
+                <span>Download CV</span>
+              </a>
+
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo('contact');
+                }}
+                className="mono text-xs px-2 py-3 underline underline-offset-4 transition-colors hover:text-[var(--text)]"
+                style={{ color: 'var(--muted)' }}
+              >
+                <span className="inline-flex items-center gap-1.5">
+                  <Mail size={13} strokeWidth={1.75} />
+                  Contact me
+                </span>
+              </a>
+            </div>
           </motion.div>
 
+          {/* Right Column: Engineer Code Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-5 w-full"
           >
-            <div className="w-full flex justify-center items-center">
-              <div className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden relative">
-                <Image
-                  src="/images/me.jpg"
-                  alt="ISHIMWE GHISLAIN"
-                  className="w-full h-full object-cover object-center"
-                  style={{
-                    boxShadow: '0 0 30px var(--glow-color)',
-                  }}
-                  width={400}
-                  height={400}
-                />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t to-transparent rounded-full"
-                  style={{
-                    background: `linear-gradient(to top, var(--background-secondary), transparent)`
-                  }}
-                ></div>
+            <div className="code-card shadow-lg">
+              {/* Editor Header Bar with traffic lights */}
+              <div className="code-card-bar">
+                <div className="flex items-center gap-1.5">
+                  <span className="code-card-dot-red" />
+                  <span className="code-card-dot-yellow" />
+                  <span className="code-card-dot-green" />
+                </div>
+                <span className="code-card-title">profile.ts</span>
+              </div>
 
-                {/* Animated border */}
-                <div
-                  className="absolute inset-[-5px] rounded-full border-4 animate-spin-slow"
-                  style={{ borderColor: 'var(--primary)' }}
-                ></div>
-                <div
-                  className="absolute inset-[-10px] rounded-full border-4 opacity-50 animate-spin-slow-reverse"
-                  style={{ borderColor: 'var(--accent)' }}
-                ></div>
+              {/* Typed Object Body with minimal accent/muted/text syntax */}
+              <div className="code-body">
+                <div className="code-line">
+                  <span className="code-keyword">const</span>
+                  <span className="code-var">&nbsp;ghislain&nbsp;</span>
+                  <span className="code-punct">= {'{'}</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-key">&nbsp;&nbsp;role</span>
+                  <span className="code-punct">:&nbsp;</span>
+                  <span className="code-str">&quot;Full Stack Developer&quot;</span>
+                  <span className="code-punct">,</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-key">&nbsp;&nbsp;based</span>
+                  <span className="code-punct">:&nbsp;</span>
+                  <span className="code-str">&quot;Kamonyi, Rwanda&quot;</span>
+                  <span className="code-punct">,</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-key">&nbsp;&nbsp;stack</span>
+                  <span className="code-punct">:&nbsp;[</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-str">&nbsp;&nbsp;&nbsp;&nbsp;&quot;Next.js&quot;</span>
+                  <span className="code-punct">,&nbsp;</span>
+                  <span className="code-str">&quot;NestJS&quot;</span>
+                  <span className="code-punct">,&nbsp;</span>
+                  <span className="code-str">&quot;Laravel&quot;</span>
+                  <span className="code-punct">,</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-str">&nbsp;&nbsp;&nbsp;&nbsp;&quot;PostgreSQL&quot;</span>
+                  <span className="code-punct">,&nbsp;</span>
+                  <span className="code-str">&quot;Flutter&quot;</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-punct">&nbsp;&nbsp;],</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-key">&nbsp;&nbsp;ships</span>
+                  <span className="code-punct">:&nbsp;[</span>
+                  <span className="code-str">&quot;Docker&quot;</span>
+                  <span className="code-punct">,&nbsp;</span>
+                  <span className="code-str">&quot;Nginx&quot;</span>
+                  <span className="code-punct">,&nbsp;</span>
+                  <span className="code-str">&quot;CI/CD&quot;</span>
+                  <span className="code-punct">],</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-key">&nbsp;&nbsp;openTo</span>
+                  <span className="code-punct">:&nbsp;</span>
+                  <span className="code-str">&quot;Remote roles&quot;</span>
+                  <span className="code-punct">,</span>
+                </div>
+                <div className="code-line">
+                  <span className="code-punct">{'}'};</span>
+                  <span
+                    className="animate-blink font-bold ml-1"
+                    style={{ color: 'var(--accent)' }}
+                    aria-hidden="true"
+                  >
+                    ▌
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Scroll Down Indicator */}
+        {/* Bottom Metrics Strip */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.2, repeat: Infinity, repeatType: 'reverse' }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center cursor-pointer"
-          style={{ color: 'var(--foreground)' }}
-          onClick={() => {
-            const aboutSection = document.getElementById('about');
-            if (aboutSection) {
-              aboutSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="pt-8 border-t border-[var(--border)] grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
         >
-          <p className="mb-2">Scroll Down</p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 mx-auto animate-bounce"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          {profile.metrics.map((m) => (
+            <MetricCounter
+              key={m.label}
+              numericValue={m.numericValue}
+              suffix={m.suffix}
+              label={m.label}
             />
-          </svg>
+          ))}
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}
