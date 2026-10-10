@@ -1,12 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, FileDown, Mail, Phone } from 'lucide-react';
+import { ArrowRight, FileDown, Mail, Phone, Eye } from 'lucide-react';
 import MetricCounter from '@/components/ui/MetricCounter';
+import CVModal from '@/components/ui/CVModal';
 import { profile } from '@/data';
 
 export default function Hero() {
+  const [isCvOpen, setIsCvOpen] = useState(false);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -80,7 +83,7 @@ export default function Hero() {
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5">
+            <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#projects"
                 onClick={(e) => {
@@ -93,10 +96,21 @@ export default function Hero() {
                 <ArrowRight size={15} strokeWidth={2} className="btn-arrow" />
               </a>
 
+              <button
+                type="button"
+                onClick={() => setIsCvOpen(true)}
+                className="btn btn-secondary !py-2.5 !px-3.5 flex items-center gap-1.5"
+                title="Review CV directly in browser"
+              >
+                <Eye size={15} strokeWidth={1.75} className="text-[var(--accent-text,var(--accent))]" />
+                <span>Review CV</span>
+              </button>
+
               <a
                 href="/Ishimwe_Ghislain_CV.pdf"
                 download="Ishimwe_Ghislain_CV.pdf"
-                className="btn btn-secondary"
+                className="btn btn-secondary !py-2.5 !px-3.5 flex items-center gap-1.5"
+                title="Download CV (PDF)"
               >
                 <FileDown size={15} strokeWidth={1.75} />
                 <span>Download CV</span>
@@ -233,6 +247,9 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
+
+      {/* Interactive CV Review Modal */}
+      <CVModal isOpen={isCvOpen} onClose={() => setIsCvOpen(false)} />
     </section>
   );
 }

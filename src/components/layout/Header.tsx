@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, FileDown, Phone } from 'lucide-react';
+import { Menu, X, FileDown, Phone, Eye } from 'lucide-react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar';
+import CVModal from '@/components/ui/CVModal';
 import { profile } from '@/data';
 
 const navItems = [
@@ -19,6 +20,7 @@ const navItems = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isCvOpen, setIsCvOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
 
   // Handle scroll detection and active section detection
@@ -143,15 +145,15 @@ export default function Header() {
                 <span className="font-semibold">{profile.phoneRaw}</span>
               </a>
 
-              <a
-                href="/Ishimwe_Ghislain_CV.pdf"
-                download="Ishimwe_Ghislain_CV.pdf"
-                className="btn btn-secondary !py-2 !px-3.5 !min-h-[38px] mono text-xs flex items-center gap-2"
-                title="Download CV (PDF)"
+              <button
+                type="button"
+                onClick={() => setIsCvOpen(true)}
+                className="btn btn-secondary !py-2 !px-3.5 !min-h-[38px] mono text-xs flex items-center gap-1.5"
+                title="Review CV (Online Preview & Download)"
               >
-                <FileDown size={14} strokeWidth={1.75} />
-                <span>CV</span>
-              </a>
+                <Eye size={14} strokeWidth={2} className="text-[var(--accent-text,var(--accent))]" />
+                <span>Review CV</span>
+              </button>
 
               <ThemeToggle />
             </div>
@@ -209,6 +211,17 @@ export default function Header() {
                     <Phone size={14} strokeWidth={2} />
                     <span>Call: {profile.phone}</span>
                   </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setIsCvOpen(true);
+                    }}
+                    className="btn btn-secondary !py-2 !px-3 mono text-xs flex items-center gap-2 w-full justify-center"
+                  >
+                    <Eye size={14} strokeWidth={2} className="text-[var(--accent-text,var(--accent))]" />
+                    <span>Review CV Online</span>
+                  </button>
                   <a
                     href="/Ishimwe_Ghislain_CV.pdf"
                     download="Ishimwe_Ghislain_CV.pdf"
@@ -223,6 +236,9 @@ export default function Header() {
           </AnimatePresence>
         </div>
       </header>
+
+      {/* Interactive CV Review Modal */}
+      <CVModal isOpen={isCvOpen} onClose={() => setIsCvOpen(false)} />
     </>
   );
 }
