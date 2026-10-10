@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, FileDown } from 'lucide-react';
+import { Menu, X, FileDown, Phone } from 'lucide-react';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar';
+import { profile } from '@/data';
 
 const navItems = [
   { name: 'About', href: '#about', id: 'about' },
@@ -85,7 +86,7 @@ export default function Header() {
           scrolled ? 'shadow-xs' : ''
         }`}
         style={{
-          backgroundColor: 'color-mix(in srgb, var(--bg) 94%, transparent)',
+          backgroundColor: 'color-mix(in srgb, var(--bg) 80%, transparent)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           borderBottom: '1px solid var(--border)',
@@ -131,8 +132,17 @@ export default function Header() {
               })}
             </nav>
 
-            {/* Actions: Download CV + ThemeToggle */}
-            <div className="hidden sm:flex items-center gap-3">
+            {/* Actions: Direct Phone + Download CV + ThemeToggle */}
+            <div className="hidden sm:flex items-center gap-2.5">
+              <a
+                href={`tel:${profile.phoneRaw}`}
+                className="btn btn-secondary !py-2 !px-3 !min-h-[38px] mono text-xs flex items-center gap-1.5"
+                title={`Direct Call: ${profile.phone}`}
+              >
+                <Phone size={13} strokeWidth={2} className="text-[var(--accent-text,var(--accent))]" />
+                <span className="font-semibold">{profile.phoneRaw}</span>
+              </a>
+
               <a
                 href="/Ishimwe_Ghislain_CV.pdf"
                 download="Ishimwe_Ghislain_CV.pdf"
@@ -191,7 +201,14 @@ export default function Header() {
                   );
                 })}
 
-                <div className="pt-2 mt-1 border-t border-[var(--border)] flex justify-between items-center px-1">
+                <div className="pt-2 mt-1 border-t border-[var(--border)] flex flex-col gap-2 px-1">
+                  <a
+                    href={`tel:${profile.phoneRaw}`}
+                    className="btn btn-primary !py-2 !px-3 mono text-xs flex items-center gap-2 w-full justify-center"
+                  >
+                    <Phone size={14} strokeWidth={2} />
+                    <span>Call: {profile.phone}</span>
+                  </a>
                   <a
                     href="/Ishimwe_Ghislain_CV.pdf"
                     download="Ishimwe_Ghislain_CV.pdf"

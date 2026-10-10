@@ -10,22 +10,29 @@ import Projects from '@/components/sections/Projects';
 import Services from '@/components/sections/Services';
 import Resume from '@/components/sections/Resume';
 import Contact from '@/components/sections/Contact';
+import ConstellationCanvas from '@/components/ui/ConstellationCanvas';
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      <main id="main-content">
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Services />
-        <Resume />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <div className="relative">
+      {/* Full-page interactive star constellation — sits below everything */}
+      <ConstellationCanvas className="fixed inset-0 pointer-events-none z-0" />
+
+      {/* All page content sits above the constellation */}
+      <div className="relative z-10">
+        <Header />
+        <main id="main-content">
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Services />
+          <Resume />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </div>
   );
 }

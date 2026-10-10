@@ -17,7 +17,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24" style={{ backgroundColor: 'var(--bg)' }}>
+    <section id="skills" className="py-24" style={{ backgroundColor: 'transparent' }}>
       <div className="container">
         {/* Section Header */}
         <div className="mb-14">

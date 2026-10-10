@@ -63,7 +63,7 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="py-24" style={{ backgroundColor: 'var(--bg)' }}>
+    <section id="services" className="py-24" style={{ backgroundColor: 'color-mix(in srgb, var(--surface-2) 30%, transparent)' }}>
       <div className="container">
         {/* Section Header */}
         <div className="mb-14">

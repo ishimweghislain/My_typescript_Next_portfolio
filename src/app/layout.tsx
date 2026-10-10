@@ -149,13 +149,6 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable}`}
         suppressHydrationWarning
       >
-        {/* Accessible skip-to-content link */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--accent)] focus:text-[var(--accent-fg)] focus:font-semibold focus:rounded-[var(--radius-sm)] focus:outline-none focus:shadow-md"
-        >
-          Skip to main content
-        </a>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

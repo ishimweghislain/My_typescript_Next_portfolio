@@ -24,7 +24,7 @@ export default function Projects() {
   }, [selectedCategory]);
 
   return (
-    <section id="projects" className="py-24" style={{ backgroundColor: 'var(--bg)' }}>
+    <section id="projects" className="py-24" style={{ backgroundColor: 'transparent' }}>
       <div className="container">
         {/* Section Header */}
         <div className="mb-14">

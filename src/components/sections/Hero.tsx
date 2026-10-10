@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, FileDown, Mail } from 'lucide-react';
+import { ArrowRight, FileDown, Mail, Phone } from 'lucide-react';
 import MetricCounter from '@/components/ui/MetricCounter';
 import { profile } from '@/data';
 
@@ -19,15 +19,15 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[90vh] flex flex-col justify-center pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden"
-      style={{ backgroundColor: 'var(--bg)' }}
+      className="relative flex flex-col pt-20 pb-12 md:pt-24 md:pb-16 overflow-hidden"
+      style={{ backgroundColor: 'transparent' }}
     >
       {/* Subtle Lime radial glow behind the hero only */}
       <div className="hero-glow" />
 
-      <div className="container relative z-10 flex-grow flex flex-col justify-center">
+      <div className="container relative z-10 flex flex-col">
         {/* Main 2-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-16 md:mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center mb-12 md:mb-16">
           {/* Left Column: Bio / Positioning */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -35,10 +35,20 @@ export default function Hero() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-7 flex flex-col items-start"
           >
-            {/* Availability Badge */}
-            <div className="availability-badge mb-6">
-              <span className="availability-dot animate-pulse-dot" />
-              <span>{profile.availability}</span>
+            {/* Availability Badge & Direct Phone */}
+            <div className="flex flex-wrap items-center gap-2.5 mb-5">
+              <div className="availability-badge">
+                <span className="availability-dot animate-pulse-dot" />
+                <span>{profile.availability}</span>
+              </div>
+              <a
+                href={`tel:${profile.phoneRaw}`}
+                className="mono text-xs font-semibold px-2.5 py-1 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] hover:border-[var(--accent)] hover:text-[var(--accent-text,var(--accent))] transition-colors inline-flex items-center gap-1.5"
+                title={`Call: ${profile.phone}`}
+              >
+                <Phone size={11} strokeWidth={2.2} className="text-[var(--accent-text,var(--accent))]" />
+                <span>{profile.phoneRaw}</span>
+              </a>
             </div>
 
             {/* Name */}
@@ -55,7 +65,7 @@ export default function Hero() {
 
             {/* Title / Role */}
             <p
-              className="mono text-lg md:text-xl font-medium mb-4"
+              className="mono text-lg md:text-xl font-medium mb-3"
               style={{ color: 'var(--accent-text,var(--accent))' }}
             >
               {profile.role}
@@ -63,14 +73,14 @@ export default function Hero() {
 
             {/* Value Proposition */}
             <p
-              className="text-base md:text-lg mb-8 max-w-[56ch]"
+              className="text-base md:text-lg mb-7 max-w-[56ch]"
               style={{ color: 'var(--muted)', lineHeight: 1.6 }}
             >
               {profile.tagline}
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3.5">
               <a
                 href="#projects"
                 onClick={(e) => {
@@ -90,6 +100,15 @@ export default function Hero() {
               >
                 <FileDown size={15} strokeWidth={1.75} />
                 <span>Download CV</span>
+              </a>
+
+              <a
+                href={`tel:${profile.phoneRaw}`}
+                className="btn btn-secondary mono text-xs !py-2.5 !px-3.5 flex items-center gap-1.5"
+                title={`Direct Call: ${profile.phone}`}
+              >
+                <Phone size={13} strokeWidth={2} className="text-[var(--accent-text,var(--accent))]" />
+                <span className="font-semibold">{profile.phoneRaw}</span>
               </a>
 
               <a
@@ -179,7 +198,7 @@ export default function Hero() {
                 <div className="code-line">
                   <span className="code-key">&nbsp;&nbsp;openTo</span>
                   <span className="code-punct">:&nbsp;</span>
-                  <span className="code-str">&quot;Remote roles&quot;</span>
+                  <span className="code-str">&quot;Remote, hybrid &amp; on-site&quot;</span>
                   <span className="code-punct">,</span>
                 </div>
                 <div className="code-line">

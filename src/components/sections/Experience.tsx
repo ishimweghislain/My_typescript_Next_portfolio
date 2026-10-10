@@ -18,7 +18,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="py-24" style={{ backgroundColor: 'var(--surface-2)' }}>
+    <section id="experience" className="py-24" style={{ backgroundColor: 'color-mix(in srgb, var(--surface-2) 30%, transparent)' }}>
       <div className="container">
         {/* Section Header */}
         <div className="mb-14">

@@ -2,7 +2,7 @@
 
 import React, { useState, FormEvent, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Copy, Check, Mail, MapPin } from 'lucide-react';
+import { Send, Copy, Check, Mail, MapPin, Phone } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { profile } from '@/data';
 
@@ -47,6 +47,7 @@ export default function Contact() {
   const [status, setStatus] = useState<{ ok: boolean; msg: string } | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [copied, setCopied] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
@@ -58,6 +59,12 @@ export default function Contact() {
     navigator.clipboard.writeText(profile.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCopyPhone = () => {
+    navigator.clipboard.writeText(profile.phoneRaw);
+    setCopiedPhone(true);
+    setTimeout(() => setCopiedPhone(false), 2000);
   };
 
   const validate = () => {
@@ -148,11 +155,12 @@ export default function Contact() {
         return;
       }
 
-      throw new Error(data?.error || 'Failed to deliver message');
-    } catch {
+      throw new Error(data?.error || data?.details || 'Failed to deliver message');
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : '';
       setStatus({
         ok: false,
-        msg: 'Unable to send message directly. Please write to ishimweghislain82@gmail.com.',
+        msg: errMsg || 'Unable to send message directly. Please write to ishimweghislain82@gmail.com or call +250 781 262 526.',
       });
     } finally {
       setIsSubmitting(false);
@@ -160,7 +168,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24" style={{ backgroundColor: 'var(--bg)' }}>
+    <section id="contact" className="py-24" style={{ backgroundColor: 'transparent' }}>
       <div className="container">
         {/* Section Header */}
         <div className="mb-14">
@@ -174,7 +182,7 @@ export default function Contact() {
                 Let&apos;s build something solid.
               </h2>
               <p className="text-base mt-2" style={{ color: 'var(--muted)' }}>
-                Open to remote and Kigali-based opportunities.
+                Open to remote, hybrid, and Kigali on-site opportunities.
               </p>
             </div>
             <div className="mono text-xs text-[var(--accent-text,var(--accent))] shrink-0">
@@ -200,6 +208,53 @@ export default function Contact() {
               <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--muted)' }}>
                 Whether you have an upcoming project, a contract role, or an engineering question, feel free to reach out.
               </p>
+
+              {/* Direct Phone & WhatsApp Card */}
+              <div className="card p-4 mb-4">
+                <div className="flex items-center justify-between">
+                  <span className="mono text-[0.7rem] uppercase tracking-wider text-[var(--muted)]">
+                    Direct Phone &amp; WhatsApp
+                  </span>
+                  <span className="mono text-[0.65rem] px-2 py-0.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent-text,var(--accent))] font-semibold">
+                    Direct
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-2 mt-2">
+                  <a
+                    href={`tel:${profile.phoneRaw}`}
+                    className="mono text-sm font-semibold truncate hover:text-[var(--accent-text,var(--accent))] transition-colors flex items-center gap-1.5"
+                    style={{ color: 'var(--text)' }}
+                    title={`Call: ${profile.phone}`}
+                  >
+                    <Phone size={14} className="text-[var(--accent-text,var(--accent))] shrink-0" />
+                    <span>{profile.phone}</span>
+                  </a>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <a
+                      href="https://wa.me/250781262526"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mono text-[0.7rem] px-2 py-1 rounded-[var(--radius-sm)] border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent-text,var(--accent))] transition-colors"
+                      title="Direct Chat on WhatsApp"
+                    >
+                      WhatsApp
+                    </a>
+                    <button
+                      type="button"
+                      onClick={handleCopyPhone}
+                      className="btn btn-secondary !p-2 !min-w-[36px] !min-h-[36px] flex items-center justify-center shrink-0"
+                      title="Copy phone number to clipboard"
+                      aria-label="Copy phone number"
+                    >
+                      {copiedPhone ? (
+                        <Check size={14} className="text-[var(--accent-text,var(--accent))]" />
+                      ) : (
+                        <Copy size={14} />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               {/* Email Card with Copy Button */}
               <div className="card p-4 mb-6">

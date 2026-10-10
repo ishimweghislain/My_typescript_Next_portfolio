@@ -53,7 +53,7 @@ export default function Footer() {
   return (
     <footer
       className="py-16 border-t border-[var(--border)]"
-      style={{ backgroundColor: 'var(--surface)' }}
+      style={{ backgroundColor: 'color-mix(in srgb, var(--surface) 40%, transparent)' }}
     >
       <div className="container">
         {/* Top footer row */}
@@ -72,11 +72,20 @@ export default function Footer() {
             <p className="text-sm max-w-sm mb-4 leading-relaxed" style={{ color: 'var(--muted)' }}>
               Full Stack Developer based in Kamonyi, Rwanda. Focused on reliable fintech, e-commerce, and education platforms.
             </p>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
-              <span className="mono text-xs" style={{ color: 'var(--muted)' }}>
-                Kamonyi, Rwanda (UTC+2)
-              </span>
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
+                <span className="mono text-xs" style={{ color: 'var(--muted)' }}>
+                  Kamonyi, Rwanda (UTC+2)
+                </span>
+              </div>
+              <a
+                href={`tel:${profile.phoneRaw}`}
+                className="mono text-xs hover:text-[var(--accent-text,var(--accent))] transition-colors"
+                style={{ color: 'var(--muted)' }}
+              >
+                Direct: {profile.phone}
+              </a>
             </div>
           </div>
 

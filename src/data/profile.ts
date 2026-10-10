@@ -19,6 +19,8 @@ export interface Profile {
   tagline: string;
   bio: string;
   email: string;
+  phone: string;
+  phoneRaw: string;
   socials: SocialLink[];
   metrics: Metric[];
   languages: { language: string; level: string }[];
@@ -30,10 +32,12 @@ export const profile: Profile = {
   role: "Full Stack Developer",
   based: "Kamonyi, Rwanda",
   currentCompany: "Fullstack Software Ltd",
-  availability: "Open to remote full stack, backend and DevOps roles",
+  availability: "Open to remote, hybrid and on-site roles",
   tagline: "I design, build and deploy fintech, e-commerce and education platforms, from database to server.",
   bio: "I'm a full stack developer based in Kamonyi, Rwanda, currently at Fullstack Software Ltd, where I build, deploy and manage production systems for clients across fintech, e-commerce, property management, insurance and media. I work end to end: database design, APIs, web and mobile interfaces, servers and CI/CD. I'm also a trainer who has taught 50+ students, and a BSc Software Engineering student at AUCA. I enjoy building practical technology for Rwandan businesses and education.",
   email: "ishimweghislain82@gmail.com",
+  phone: "+250 781 262 526",
+  phoneRaw: "0781262526",
   socials: [
     { name: "LinkedIn", url: "https://www.linkedin.com/in/ishimwe-ghislain-b26ba6288" },
     { name: "Instagram", url: "https://instagram.com/ghislain_ishimwe" },

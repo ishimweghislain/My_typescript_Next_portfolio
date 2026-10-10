@@ -105,27 +105,7 @@ body {
   /* Subtle dot grid texture */
   background-image: radial-gradient(var(--border) 1px, transparent 1px);
   background-size: 28px 28px;
-  /* Radial fade to soften edges */
   position: relative;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 80% 60% at 50% 0%,
-    transparent 55%,
-    var(--bg) 100%
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Stack everything above the body pseudo */
-body > * {
-  position: relative;
-  z-index: 1;
 }
 
 /* ─── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
