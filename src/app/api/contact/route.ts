@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     const port = Number(process.env.MAIL_PORT) || 587;
     const user = process.env.MAIL_USERNAME || 'apps@programage.com';
     const pass = process.env.MAIL_PASSWORD || 'wmnxdffulyjbptvs';
-    const fromName = process.env.MAIL_FROM_NAME || 'LoanMS Support Team - Fullstack';
+    const fromName = process.env.MAIL_FROM_NAME || 'Ishimwe Ghislain — Portfolio';
     const fromAddress = process.env.MAIL_FROM_ADDRESS || 'apps@programage.com';
     const toAddress = process.env.MAIL_TO_ADDRESS || 'ishimweghislain82@gmail.com';
 

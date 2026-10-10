@@ -31,8 +31,8 @@ function getSystemTheme(): 'light' | 'dark' {
 }
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>('light');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setThemeState] = useState<Theme>('dark');
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark');
 
   const applyTheme = useCallback((resolved: 'light' | 'dark') => {
     document.documentElement.setAttribute('data-theme', resolved);
@@ -48,7 +48,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     const saved = localStorage.getItem('theme') as Theme | null;
     const valid: Theme[] = ['light', 'dark', 'system'];
-    const initial = saved && valid.includes(saved) ? saved : 'light';
+    const initial = saved && valid.includes(saved) ? saved : 'dark';
     setThemeState(initial);
   }, []);
 

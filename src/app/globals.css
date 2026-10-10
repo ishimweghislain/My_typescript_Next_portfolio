@@ -3,17 +3,17 @@
 /* ─── DESIGN TOKENS ──────────────────────────────────────────────────────── */
 
 :root {
-  /* Light theme (default) */
-  --bg:          #F5F6F8;
-  --surface:     #FFFFFF;
-  --surface-2:   #ECEEF2;
-  --border:      #DADDE4;
-  --text:        #16181F;
-  --muted:       #5A6070;
+  /* Dark theme (default) */
+  --bg:          #16181F;
+  --surface:     #23262F;
+  --surface-2:   #2C303B;
+  --border:      #343845;
+  --text:        #F2F4F7;
+  --muted:       #9AA1B0;
   --accent:      #B6FF2E;
   --accent-fg:   #16181F;
-  --accent-text: #3B6000;   /* readable on light bg */
-  --accent-soft: rgba(182, 255, 46, 0.35);
+  --accent-text: #B6FF2E;
+  --accent-soft: rgba(182, 255, 46, 0.12);
 
   /* Radii */
   --radius:  14px;
