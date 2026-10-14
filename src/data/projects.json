@@ -192,5 +192,16 @@
     "role": "Team",
     "year": 2025,
     "fallbackImage": "/images/mkms.jpg"
+  },
+  {
+    "slug": "mineracao",
+    "title": "Mineracao Global",
+    "category": "Business",
+    "featured": false,
+    "url": "https://mineracaoglobal.com",
+    "description": "International mineral trading and mining operations platform specializing in gold, diamonds, and strategic minerals with operations in Angola.",
+    "technologies": ["React", "Tailwind CSS", "Node.js"],
+    "role": "Team",
+    "year": 2025
   }
 ]
